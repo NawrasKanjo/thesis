@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import os
 
-INPUT_FILE = "../../../Datasets/Selected rows/credit_card_fraud/dataset.csv"
+INPUT_FILE = "../../../../Datasets/Selected rows/credit_card_fraud/dataset.csv"
 OUTPUT_DIR = "noisy_datasets"
 
 COLUMNS = [

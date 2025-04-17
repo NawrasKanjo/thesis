@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import os
 
-INPUT_FILE = "../../../Datasets/Selected rows/breast_cancer/dataset.data"
+INPUT_FILE = "../../../../Datasets/Selected rows/breast_cancer/dataset.data"
 OUTPUT_DIR = "noisy_datasets"
 
 # Columns from index 2 to 31 (exclude ID and binary target 'Diagnosis')

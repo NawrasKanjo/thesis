@@ -29,7 +29,7 @@ models = {
 scaled_models = ["LogisticRegression", "SVM", "KNN"]
 
 # --- Config ---
-dataset_dir = "../../../Datasets/Selected rows/walk_run/noisy_datasets"
+dataset_dir = "../../../../Datasets/Selected rows/walk_run/noisy_datasets"
 results_dir = "results_corrected"
 temp_dir = "temp"
 os.makedirs(results_dir, exist_ok=True)

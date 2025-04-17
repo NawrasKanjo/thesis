@@ -33,7 +33,7 @@ scaled_models = ["LogisticRegression", "SVM", "KNN"]
 # ---------------------
 # CONFIGURATION
 # ---------------------
-dataset_dir = "../../../Datasets/Selected rows/magic_gamma_telescope/noisy_datasets"
+dataset_dir = "../../../../Datasets/Selected rows/magic_gamma_telescope/noisy_datasets"
 results_dir = "results_corrected"
 temp_dir = "temp"
 os.makedirs(results_dir, exist_ok=True)
