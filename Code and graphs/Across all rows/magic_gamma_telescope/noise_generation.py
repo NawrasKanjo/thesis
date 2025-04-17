@@ -3,7 +3,7 @@ import numpy as np
 import os
 
 # Path to the original dataset file
-INPUT_FILE = "dataset.data"
+INPUT_FILE = "../../../../Datasets/Across all rows/magic_gamma_telescope/dataset.data"
 # Output directory for noisy datasets
 OUTPUT_DIR = "noisy_datasets"
 

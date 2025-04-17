@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import os
 
-INPUT_FILE = "dataset.csv"
+INPUT_FILE = "../../../../Datasets/Across all rows/rice/dataset.csv"
 OUTPUT_DIR = "noisy_datasets"
 
 COLUMNS = ['Area', 'Perimeter', 'Major_Axis_Length', 'Minor_Axis_Length', 'Eccentricity', 'Convex_Area', 'Extent']

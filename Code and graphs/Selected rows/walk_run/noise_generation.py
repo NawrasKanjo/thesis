@@ -3,7 +3,7 @@ import numpy as np
 import os
 
 INPUT_FILE = "../../../../Datasets/Selected rows/walk_run/dataset.csv"
-OUTPUT_DIR = "noisy_datasets"
+OUTPUT_DIR = "../../../../Datasets/Selected rows/walk_run/noisy_datasets"
 
 COLUMNS = [
     'acceleration_x', 'acceleration_y', 'acceleration_z',

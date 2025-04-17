@@ -1,0 +1,2 @@
+Osmancik == 1
+Cammeo == 0
