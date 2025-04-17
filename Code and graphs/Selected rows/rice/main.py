@@ -135,7 +135,7 @@ for noise in noise_levels:
         })
 
         ipg_str = f"{ipg_energy:.6f} kWh" if ipg_energy is not None else "N/A"
-        print(f"[{model_name}] Noise {noise}% → Acc={acc:.6f} | F1={f1:.6f} | CO2e={emissions:.9f} | IPG={ipg_str}")
+        print(f"[{model_name}] Noise {noise}% → Acc={acc:.3f} | F1={f1:.3f} | CO2e={emissions:.9f} | IPG={ipg_str}")
 
 # Save results
 df_out = pd.DataFrame(results)
