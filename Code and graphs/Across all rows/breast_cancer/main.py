@@ -23,7 +23,7 @@ LABEL_INDEX = 1                # column 1 is class (already 0/1)
 noise_levels = list(range(0, 101, 10))
 seed = 42
 
-dataset_dir = "../../../../Datasets/Selected rows/breast_cancer/noisy_datasets"
+dataset_dir = "../../../../Datasets/Across all rows/breast_cancer/noisy_datasets"
 results_dir = "results_corrected"
 log_dir_root = "logs"
 carbon_dir = "codecarbon_logs"

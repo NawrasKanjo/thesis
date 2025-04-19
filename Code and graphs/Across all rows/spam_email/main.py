@@ -35,7 +35,7 @@ LABEL = "Class"
 noise_levels = list(range(0, 101, 10))
 seed = 42
 
-dataset_dir = "../../../../Datasets/Selected rows/spam_emails/noisy_datasets"
+dataset_dir = "../../../../Datasets/Across all rows/spam_emails/noisy_datasets"
 results_dir = "results_corrected"
 log_dir_root = "logs"
 carbon_dir = "codecarbon_logs"
