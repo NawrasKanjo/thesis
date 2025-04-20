@@ -17,6 +17,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from codecarbon import EmissionsTracker
 
+
 # === Config ===
 FEATURES = ['acceleration_x', 'acceleration_y', 'acceleration_z', 'gyro_x', 'gyro_y', 'gyro_z']
 LABEL = "activity"
@@ -43,6 +44,7 @@ models = {
     "KNN": KNeighborsClassifier(),
     "DecisionTree": DecisionTreeClassifier(random_state=42)
 }
+scaled_models = ["LogisticRegression", "SVM", "KNN"]
 
 def read_energy_kwh(ipg_log_path):
     try:
@@ -89,7 +91,15 @@ for noise in noise_levels:
         tracemalloc.start()
         start_train = time.time()
 
-        model.fit(X_train, y_train)
+        X_train_used = X_train
+        X_test_used = X_test
+        if model_name in scaled_models:
+            scaler = StandardScaler()
+            X_train_used = scaler.fit_transform(X_train)
+            X_test_used = scaler.transform(X_test)
+
+        model.fit(X_train_used, y_train)
+
 
         train_time = time.time() - start_train
         emissions = tracker.stop()
@@ -98,7 +108,7 @@ for noise in noise_levels:
 
         # Inference
         start_pred = time.time()
-        y_pred = model.predict(X_test)
+        y_pred = model.predict(X_test_used)
         inference_time = (time.time() - start_pred) / len(X_test)
 
         # Save model & size

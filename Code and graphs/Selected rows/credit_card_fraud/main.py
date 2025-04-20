@@ -6,6 +6,7 @@ import subprocess
 import copy
 import pandas as pd
 import numpy as np
+from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, f1_score, recall_score, precision_score
 from sklearn.linear_model import LogisticRegression
@@ -46,6 +47,8 @@ models = {
     "KNN": KNeighborsClassifier(),
     "DecisionTree": DecisionTreeClassifier(random_state=42)
 }
+scaled_models = ["LogisticRegression", "SVM", "KNN"]
+
 
 def read_energy_kwh(ipg_log_path):
     try:
@@ -92,7 +95,15 @@ for noise in noise_levels:
         tracemalloc.start()
         start_train = time.time()
 
-        model.fit(X_train, y_train)
+        X_train_used = X_train
+        X_test_used = X_test
+        if model_name in scaled_models:
+            scaler = StandardScaler()
+            X_train_used = scaler.fit_transform(X_train)
+            X_test_used = scaler.transform(X_test)
+
+        model.fit(X_train_used, y_train)
+
 
         train_time = time.time() - start_train
         emissions = tracker.stop()
@@ -100,7 +111,8 @@ for noise in noise_levels:
         tracemalloc.stop()
 
         start_pred = time.time()
-        y_pred = model.predict(X_test)
+        y_pred = model.predict(X_test_used)
+
         inference_time = (time.time() - start_pred) / len(X_test)
 
         model_path = os.path.join(temp_dir, f"{model_name}.joblib")

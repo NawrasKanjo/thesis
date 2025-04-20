@@ -16,6 +16,8 @@ from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from codecarbon import EmissionsTracker
+from sklearn.preprocessing import StandardScaler
+
 
 # === Config ===
 FEATURES = ['Area', 'Perimeter', 'Major_Axis_Length', 'Minor_Axis_Length',
@@ -44,6 +46,7 @@ models = {
     "KNN": KNeighborsClassifier(),
     "DecisionTree": DecisionTreeClassifier(random_state=42)
 }
+scaled_models = ["LogisticRegression", "SVM", "KNN"]
 
 def read_energy_kwh(ipg_log_path):
     try:
@@ -90,7 +93,15 @@ for noise in noise_levels:
         tracemalloc.start()
         start_train = time.time()
 
-        model.fit(X_train, y_train)
+        X_train_used = X_train
+        X_test_used = X_test
+        if model_name in scaled_models:
+            scaler = StandardScaler()
+            X_train_used = scaler.fit_transform(X_train)
+            X_test_used = scaler.transform(X_test)
+
+        model.fit(X_train_used, y_train)
+
 
         train_time = time.time() - start_train
         emissions = tracker.stop()
@@ -98,7 +109,8 @@ for noise in noise_levels:
         tracemalloc.stop()
 
         start_pred = time.time()
-        y_pred = model.predict(X_test)
+        y_pred = model.predict(X_test_used)
+
         inference_time = (time.time() - start_pred) / len(X_test)
 
         model_path = os.path.join(temp_dir, f"{model_name}.joblib")
@@ -135,7 +147,7 @@ for noise in noise_levels:
         })
 
         ipg_str = f"{ipg_energy:.6f} kWh" if ipg_energy is not None else "N/A"
-        print(f"[{model_name}] Noise {noise}% → Acc={acc:.6f} | F1={f1:.6f} | CO2e={emissions:.9f} | IPG={ipg_str}")
+        print(f"[{model_name}] Noise {noise}% → Acc={acc:.3f} | F1={f1:.3f} | CO2e={emissions:.9f} | IPG={ipg_str}")
 
 # Save results
 df_out = pd.DataFrame(results)
